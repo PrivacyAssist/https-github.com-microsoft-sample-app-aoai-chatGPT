@@ -6,12 +6,12 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from "rehype-raw";
 import uuid from 'react-uuid';
-import { isEmpty } from "lodash";
+import { isEmpty } from "lodash-es";
 import DOMPurify from 'dompurify';
-
 import styles from "./Chat.module.css";
 import Contoso from "../../assets/Contoso.svg";
 import { XSSAllowTags } from "../../constants/xssAllowTags";
+
 
 import {
     ChatMessage,
@@ -35,11 +35,21 @@ import { ChatHistoryPanel } from "../../components/ChatHistory/ChatHistoryPanel"
 import { AppStateContext } from "../../state/AppProvider";
 import { useBoolean } from "@fluentui/react-hooks";
 
+interface Props {
+    onSend: (question: string, id?: string) => void;
+    disabled: boolean;
+    placeholder?: string;
+    clearOnSend?: boolean;
+    conversationId?: string;
+
+}
+
 const enum messageStatus {
     NotRunning = "Not Running",
     Processing = "Processing",
     Done = "Done"
 }
+
 
 const Chat = () => {
     const appStateContext = useContext(AppStateContext)
@@ -51,7 +61,7 @@ const Chat = () => {
     const [activeCitation, setActiveCitation] = useState<Citation>();
     const [isCitationPanelOpen, setIsCitationPanelOpen] = useState<boolean>(false);
     const abortFuncs = useRef([] as AbortController[]);
-    const [showAuthMessage, setShowAuthMessage] = useState<boolean | undefined>();
+    const [showAuthMessage, setShowAuthMessage] = useState<boolean>(true);
     const [messages, setMessages] = useState<ChatMessage[]>([])
     const [processMessages, setProcessMessages] = useState<messageStatus>(messageStatus.NotRunning);
     const [clearingChat, setClearingChat] = useState<boolean>(false);
@@ -73,7 +83,6 @@ const Chat = () => {
     }
 
     const [ASSISTANT, TOOL, ERROR] = ["assistant", "tool", "error"]
-    const NO_CONTENT_ERROR = "No content in messages object."
 
     useEffect(() => {
         if (appStateContext?.state.isCosmosDBAvailable?.status !== CosmosDBStatus.Working  
@@ -357,10 +366,6 @@ const Chat = () => {
                             if (obj !== "" && obj !== "{}") {
                                 runningText += obj;
                                 result = JSON.parse(runningText);
-                                if (!result.choices?.[0]?.messages?.[0].content) {
-                                    errorResponseMessage = NO_CONTENT_ERROR;
-                                    throw Error();
-                                }
                                 if (result.choices?.length > 0) {
                                     result.choices[0].messages.forEach((msg) => {
                                         msg.id = result.id;
@@ -455,6 +460,7 @@ const Chat = () => {
                 } else {
                     if (!result.history_metadata) {
                         console.error("Error retrieving data.", result);
+                        console.log("errorMessage", errorMessage)
                         let errorChatMsg: ChatMessage = {
                             id: uuid(),
                             role: ERROR,
@@ -552,40 +558,36 @@ const Chat = () => {
                     console.error("Failure fetching current chat state.")
                     return
                 }
-                const noContentError = appStateContext.state.currentChat.messages.find(m => m.role === ERROR)
-                
-                if (!noContentError?.content.includes(NO_CONTENT_ERROR)) {
-                    saveToDB(appStateContext.state.currentChat.messages, appStateContext.state.currentChat.id)
-                        .then((res) => {
-                            if (!res.ok) {
-                                let errorMessage = "An error occurred. Answers can't be saved at this time. If the problem persists, please contact the site administrator.";
-                                let errorChatMsg: ChatMessage = {
-                                    id: uuid(),
-                                    role: ERROR,
-                                    content: errorMessage,
-                                    date: new Date().toISOString()
-                                }
-                                if (!appStateContext?.state.currentChat?.messages) {
-                                    let err: Error = {
-                                        ...new Error,
-                                        message: "Failure fetching current chat state."
-                                    }
-                                    throw err
-                                }
-                                setMessages([...appStateContext?.state.currentChat?.messages, errorChatMsg])
+                saveToDB(appStateContext.state.currentChat.messages, appStateContext.state.currentChat.id)
+                    .then((res) => {
+                        if (!res.ok) {
+                            let errorMessage = "An error occurred. Answers can't be saved at this time. If the problem persists, please contact the site administrator.";
+                            let errorChatMsg: ChatMessage = {
+                                id: uuid(),
+                                role: ERROR,
+                                content: errorMessage,
+                                date: new Date().toISOString()
                             }
-                            return res as Response
-                        })
-                        .catch((err) => {
-                            console.error("Error: ", err)
-                            let errRes: Response = {
-                                ...new Response,
-                                ok: false,
-                                status: 500,
+                            if (!appStateContext?.state.currentChat?.messages) {
+                                let err: Error = {
+                                    ...new Error,
+                                    message: "Failure fetching current chat state."
+                                }
+                                throw err
                             }
-                            return errRes;
-                        })
-                }
+                            setMessages([...appStateContext?.state.currentChat?.messages, errorChatMsg])
+                        }
+                        return res as Response
+                    })
+                    .catch((err) => {
+                        console.error("Error: ", err)
+                        let errRes: Response = {
+                            ...new Response,
+                            ok: false,
+                            status: 500,
+                        }
+                        return errRes;
+                    })
             } else {
             }
             appStateContext?.dispatch({ type: 'UPDATE_CHAT_HISTORY', payload: appStateContext.state.currentChat });
@@ -630,6 +632,10 @@ const Chat = () => {
         return isLoading || (messages && messages.length === 0) || clearingChat || appStateContext?.state.chatHistoryLoadingState === ChatHistoryLoadingState.Loading
     }
 
+    function onSend(): import("react").MouseEventHandler<HTMLButtonElement> | undefined {
+        throw new Error("Function not implemented.");
+    }
+
     return (
         <div className={styles.container} role="main">
             {showAuthMessage ? (
@@ -644,17 +650,40 @@ const Chat = () => {
                     <h2 className={styles.chatEmptyStateSubtitle} style={{ fontSize: "20px" }}><strong>If you deployed in the last 10 minutes, please wait and reload the page after 10 minutes.</strong></h2>
                 </Stack>
             ) : (
-                <Stack horizontal className={styles.chatRoot}>
-                    <div className={styles.chatContainer}>
+                <Stack horizontal className={styles.chatRootoutercontainer}>
+
+                          <Stack > 
+                              <div className={styles.faqstacklefttext}>
+                             <h4>Finance Privacy Assistant Questions?  </h4>
+                              <h4> Support: PrivCon_Fin@microsoft.com</h4>
+                              </div>
+                                                        
+                            </Stack>   
+                            <Stack className={styles.faqstackleftup}>
+                                 <img
+                                 src={ui?.logo ? ui.logo : Contoso}  
+                                 className={styles.chatEmptyStateIcon}                               
+                                 aria-hidden="true"
+                                 />
+                            </Stack> 
+                        
+                       
+                         <div className={styles.faqstackrightup} >
+                               <h4>Developed by Data & Technology Solutions</h4>
+                               <h4>Application Support:coisupport@microsoft.com </h4>
+                         </div>
+                    
+                    <div className={styles.chatContainerinnercontainer}>
                         {!messages || messages.length < 1 ? (
                             <Stack className={styles.chatEmptyState}>
-                                <img
+                                {/* <img
                                     src={ui?.chat_logo ? ui.chat_logo : Contoso}
                                     className={styles.chatIcon}
                                     aria-hidden="true"
-                                />
+                                /> */}
                                 <h1 className={styles.chatEmptyStateTitle}>{ui?.chat_title}</h1>
                                 <h2 className={styles.chatEmptyStateSubtitle}>{ui?.chat_description}</h2>
+                                <h2 className={styles.chatEmptyStateBelowSubtitle}>{ui?.chat_description_below_sub_title}</h2>
                             </Stack>
                         ) : (
                             <div className={styles.chatMessageStream} style={{ marginBottom: isLoading ? "40px" : "0px" }} role="log">
@@ -772,6 +801,7 @@ const Chat = () => {
                                 >
                                 </Dialog>
                             </Stack>
+                      
                             <QuestionInput
                                 clearOnSend
                                 placeholder="Type a new question..."

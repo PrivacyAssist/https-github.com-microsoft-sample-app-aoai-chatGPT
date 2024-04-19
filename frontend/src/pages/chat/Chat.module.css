@@ -15,6 +15,7 @@
     gap: 5px;
 }
 
+
 .chatContainer {
     flex: 1;
     display: flex;
@@ -27,6 +28,7 @@
     max-height: calc(100vh - 100px);
 }
 
+
 .chatEmptyState {
     flex-grow: 1;
     display: flex;
@@ -38,7 +40,7 @@
 .chatEmptyStateTitle {
     font-style: normal;
     font-weight: 700;
-    font-size: 36px;
+    font-size: 30px;
     display: flex;
     align-items: flex-end;
     text-align: center;
@@ -49,6 +51,184 @@
 
 .chatEmptyStateSubtitle {
     margin-top: 20px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    align-items: flex-end;
+    text-align: center;
+    letter-spacing: -0.01em;
+    color: #616161;
+}
+
+.chatRootoutercontainer {
+    flex: 1;
+    display: flex;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    gap: 5px;
+    position: relative;
+    width: 100%; /* Adjust width as needed */
+    height: 300px; /* Adjust height as needed */
+    padding: 20px; /* Adjust space on left and right */
+    margin-top: 50px; /* Adjust space on top */
+    background-color: #f0f0f0; /* Background color of outer container */
+  }
+  
+  .chatContainerinnercontainer {
+    flex: 1;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: radial-gradient(108.78% 108.78% at 50.02% 19.78%, #FFFFFF 57.29%, #EEF6FE 100%);
+    box-shadow: 0 2px 4px #00000024, 0 0 2px #0000001f;
+    border-radius: 8px;
+    overflow-y: auto;
+    max-height: calc(100vh - 100px);
+    position: absolute;
+    top: 0px;
+    left: 190px;
+    bottom: 0;
+    background-color: #fff;
+    border: 1px solid #cccccc;
+  }
+ 
+  .buttonstack {
+    display: flex;
+    flex-flow: column;
+    width: 95%;
+    height: auto;
+    box-sizing: border-box;
+    left: 100px;
+    justify-content: space-evenly;
+    align-items: baseline;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-around;
+
+  }
+   
+  .faqstack {
+    position: absolute;
+    bottom: 0;
+    left: -105px;
+    width: 500px;
+    background-color: #f0f0f0;
+    padding: 50px;
+    top: 300px;
+    font-size: 17px;
+    font-family: Arial;
+    text-align: center;
+
+  }
+
+  .faqh3 {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  
+  .faqul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    
+  }
+  
+  .faqli {
+    margin-bottom: 5px;
+    font-size: smaller;
+  }
+
+  .faqstackleftup {
+    position: absolute;
+    top: -92px;
+    left: 212px;
+    width: 479px;
+    background-color: #f0f0f0;
+    font-size: 12px;
+    font-family: Arial;
+  }
+
+  .faqstacklefttext {
+    position: absolute;
+    top: -69px;
+    right: 568px;
+    width: 500px;
+    background-color: #f0f0f0;
+    padding: revert-layer;
+    font-size: 13px;
+    font-family: Arial;
+  }
+
+  .chatEmptyStateIcon {
+    position: absolute;
+    top: 34px;
+    left: -25px;
+    bottom: 152px;
+    height: 60px;
+}
+
+  .faqstackrightup {
+    position: absolute;
+    top: -70px;
+    right: 10px;
+    width: 500px;
+    background-color: #f0f0f0;
+    padding: revert;
+    font-size: 13px;
+    font-family: Arial;
+
+  }
+  
+  .faqstackh3 {
+    font-size: 13px;
+    margin-bottom: 10px;
+    align-content: center;
+  }
+  
+  .faqstackul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: smaller;
+  }
+  
+  .faqstackli {
+    margin-bottom: 5px;
+  }
+  
+  
+ 
+  .buttoncontainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 60px;
+    column-gap: 50px;
+    width: 99%;
+  }
+  
+  .custombutton {
+       
+    color: #000;
+    max-width: 1028px;
+    margin-top: 8px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    align-content: flex-start;
+    border-color: #000;
+  }
+  
+  .custombutton .line {
+    display: block;
+  }
+
+
+.chatEmptyStateBelowSubtitle {
+    margin-top: 0px;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -164,13 +344,13 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     position: absolute;
     width: 40px;
     height: 40px;
-    left: 7px;
+    left: -43px;
     top: 66px;
-    color: #FFFFFF;
+    color: #fff;
     border-radius: 4px;
     z-index: 1;
 }
@@ -346,7 +526,4 @@ a {
         line-height: 36px;
     }
 
-    .citationPanel {
-        max-width: 100%;
-    }
 }

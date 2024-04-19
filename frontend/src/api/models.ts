@@ -106,6 +106,7 @@ export type UI = {
     title: string;
     chat_title: string;
     chat_description: string;
+    chat_description_below_sub_title: string;
     logo?: string;
     chat_logo?: string;
     show_share_button?: boolean

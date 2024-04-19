@@ -1,5 +1,17 @@
 #!/bin/bash
 
+#!/bin/bash
+
+# Rebuild front-end assets
+cd frontend
+npm install  # Example command for installing Node.js dependencies
+npm run build  # Example command for building front-end assets
+cd ..
+
+# Start your Python application
+python main.py  # Example command for starting the Python application
+
+
 echo ""
 echo "Restoring frontend npm packages"
 echo ""

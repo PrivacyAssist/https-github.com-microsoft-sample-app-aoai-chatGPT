@@ -1,3 +1,15 @@
+
+@echo off
+
+ rem Rebuild front-end assets
+cd frontend
+npm install   rem Example command for installing Node.js dependencies
+npm run build  rem Example command for building front-end assets
+cd ..
+
+rem Start your Python application
+python main.py  rem Example command for starting the Python application
+
 @echo off
 
 echo.
@@ -21,6 +33,7 @@ if "%errorlevel%" neq "0" (
 
 echo.
 echo Building frontend
+
 echo.
 call npm run build
 if "%errorlevel%" neq "0" (
@@ -32,7 +45,7 @@ echo.
 echo Starting backend    
 echo.    
 cd ..  
-start http://127.0.0.1:50505
+start https://localhost:3000
 call python -m uvicorn app:app  --port 50505 --reload
 if "%errorlevel%" neq "0" (    
     echo Failed to start backend    
