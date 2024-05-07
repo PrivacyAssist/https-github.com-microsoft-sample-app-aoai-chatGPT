@@ -111,36 +111,7 @@
 
   }
    
-  .faqstack {
-    position: absolute;
-    bottom: 0;
-    left: -105px;
-    width: 500px;
-    background-color: #f0f0f0;
-    padding: 50px;
-    top: 300px;
-    font-size: 17px;
-    font-family: Arial;
-    text-align: center;
-
-  }
-
-  .faqh3 {
-    font-size: 13px;
-    margin-bottom: 10px;
-  }
   
-  .faqul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    
-  }
-  
-  .faqli {
-    margin-bottom: 5px;
-    font-size: smaller;
-  }
 
   .faqstackleftup {
     position: absolute;
@@ -157,12 +128,17 @@
     top: -69px;
     right: 568px;
     width: 500px;
-    background-color: #f0f0f0;
-    padding: revert-layer;
+    background-color: #f0f0f0;   
     font-size: 13px;
     font-family: Arial;
+    display: flex;
+    flex-direction: column;
+    
   }
-
+  .Navbar
+  {
+    max-width: 0px;
+  }
   .chatEmptyStateIcon {
     position: absolute;
     top: 34px;
@@ -180,6 +156,8 @@
     padding: revert;
     font-size: 13px;
     font-family: Arial;
+    display: flex;
+    flex-direction: column;
 
   }
   
@@ -199,6 +177,10 @@
   .faqstackli {
     margin-bottom: 5px;
   }
+
+  .faqstackup {
+    margin-bottom: 5px;
+}
   
   
  
@@ -504,10 +486,223 @@ a {
     cursor: pointer;
 }
 
-@media (max-width: 480px) {
-    .chatInput {
-        width: 90%;
-        max-width: 90%;
+@media only screen  and  (max-width: 1536px) {
+   
+    .chatEmptyStateIcon{
+
+        position: absolute;
+        top: 45px;
+        left: -20px;
+        bottom: 152px;
+        height: 48px
+      }
+
+    
+
+   .chatEmptyStateTitle{
+    margin-top: -52px;
+
+}
+.faqstackli, .faqstackup {
+    margin-bottom: -8px;
+}
+.faqstacklefttext{
+    top: -60px;
+        right: 572px;
+}
+.faqstackrightup{
+    top: -59px;
+    right: 10px;
+
+}
+
+
+}
+
+@media only screen and  (max-width: 1278px) {
+   
+    .chatEmptyStateIcon{
+        position: absolute;
+        top: 45px;
+        left: -20px;
+        bottom: 152px;
+        height: 48px;
+    }
+
+    .faqstackli, .faqstackup{
+        margin-top: -3px;
+        font-size: 13px;
+}
+.faqstacklefttext{
+    top: -33px;
+        right: 538px;
+}
+.faqstackrightup{
+        top: -30px;
+        right: -5px;
+
+}
+
+}
+@media only screen and  (max-width: 1027px) {
+   
+   
+    
+.faqstacklefttext{
+    top: -33px;
+        right: 286px;
+}
+.faqstackrightup{
+    top: -30px;
+        right: -79px;
+
+}
+
+}
+@media only screen and  (max-width: 1024px) {
+   
+    .chatEmptyStateIcon{
+        position: absolute;
+        top: 45px;
+        left: -20px;
+        bottom: 152px;
+        height: 48px;
+    }
+
+    .faqstackli, .faqstackup{
+        margin-top: -3px;
+        font-size: 13px;
+    }
+.faqstacklefttext{
+    top: -33px;
+        right: 280px;
+}
+.faqstackrightup{
+    top: -30px;
+        right: -82px;
+
+}
+
+}
+
+@media only screen  and (max-width: 768px)  {
+   
+    .chatEmptyStateIcon{
+        position: absolute;
+        top: 57px;
+        left: -20px;
+        bottom: 152px;
+        height: 35px;
+    }
+
+    .faqstackli, .faqstackup{
+        margin-top: -2px;
+        font-size: 10px;
+}
+.faqstacklefttext{
+    top: -27px;
+    right: 40px;
+}
+.faqstackrightup{
+    top: -26px;
+    right: -217px;
+
+}
+.buttonstack{
+    left: 23px;
+     
+}
+.buttoncontainer
+{
+    
+    width: 100%;
+}
+.questionInputContainer
+{
+    width: 464px;
+    height: 103px;
+}
+
+}
+
+@media only screen and  (max-width: 640px)  {
+   
+    .chatEmptyStateIcon{
+        position: absolute;
+        top: 57px;
+        left: -20px;
+        bottom: 152px;
+        height: 35px;
+    }
+
+    .faqstackli, .faqstackup{
+        margin-top: 1px;
+        font-size: 9px;
+}
+.faqstacklefttext{
+    top: -29px;
+    right: -86px;
+}
+.faqstackrightup{
+    top: -30px;
+    right: -303px;
+
+}
+.buttonstack{
+    left: -43px;
+       top: -120px;
+}
+.buttoncontainer
+{
+    row-gap: 47px;
+    column-gap: 9px;
+    width: 132%;
+}
+.questionInputContainer
+{
+    left: 2%;
+    top: 32%;
+    bottom: 0%;
+    width: 375px;
+    height: 106px;
+}
+
+}
+
+
+@media only screen and (max-width: 480px) {
+   
+
+    .chatEmptyStateTitle {
+       
+        font-size: 20px;
+        margin-top: -85px
+    }
+
+    .chatEmptyStateSubtitle {
+        font-size: 11px;
+    }
+
+    .chatEmptyStateBelowSubtitle{
+        font-size: 11px;
+    }
+    .buttonstack {
+      
+    left: -47px;
+       top: -187px;
+    }
+    .chatEmptyStateIcon {
+        
+        top: 59px;
+        left: -25px;
+        bottom: 152px;
+        height: 34px;
+    }
+    .buttoncontainer {
+        column-gap: 3px;
+        width: 150%;
+        row-gap: 60px;
+
     }
 
     .newChatIcon {
@@ -518,12 +713,48 @@ a {
         left: 0px;
     }
 
-    .clearChatBroomNoCosmos {
-        left: 0px;
-    }
+    
 
     .chatEmptyStateTitle {
         line-height: 36px;
     }
+    .faqstackli, .faqstackup{
 
+    margin-top: 4px;
+        font-size: 7px;
+    }
+    .faqstacklefttext{
+        top: -33px;
+        right: -242px;
+    }
+
+    .faqstackrightup {
+        top: -33px;
+        right: -383px;
+    }
+    .questionInputContainer {
+        
+        width: 248px;
+        height: 71.5%;
+        top: 63%;
+        left: 0%;
+    
 }
+.clearChatBroomNoCosmos {
+   
+    height: 34px;
+  
+    top: 87px;
+    
+}
+}
+
+
+
+
+
+
+
+
+
+
