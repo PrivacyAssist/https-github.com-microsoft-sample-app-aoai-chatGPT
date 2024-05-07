@@ -11,9 +11,11 @@ interface Props {
     placeholder?: string;
     clearOnSend?: boolean;
     conversationId?: string;
+    isVisible:boolean;
+    hidevisible: () => void;
 }
 
-export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conversationId }: Props) => {
+export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conversationId,isVisible ,hidevisible}: Props) => {
     const [question, setQuestion] = useState<string>("");
 
   const sendQuestion = () => {
@@ -33,16 +35,17 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
     };
 
     
-    const [isVisible, setIsVisible] = useState(true);
 
+    
     const handleButtonClick = () => {
-      setIsVisible(false);
+        hidevisible();
     }
       
     const onEnterPress = (ev: React.KeyboardEvent<Element>) => {
         if (ev.key === "Enter" && !ev.shiftKey && !(ev.nativeEvent?.isComposing === true)) {
             ev.preventDefault();
             sendQuestion();
+            handleButtonClick();
         }
     };
 
@@ -63,8 +66,8 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
               <div className={styles.buttoncontainer}>
  
 
-             <button className={styles.custombutton}  onClick={()=>{onSend('How do I start a finance privacy review','');handleButtonClick();}}>
-                  <span className={styles.line}><strong>How do I start </strong> </span>
+             <button className={styles.custombutton}  onClick={()=>{onSend('How do I intiate a finance privacy review','');handleButtonClick();}}>
+                  <span className={styles.line}><strong>How do I intiate </strong> </span>
                   <span className={styles.Subline}>a finance privacy review </span>
                   
              </button>
@@ -78,9 +81,9 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
 
              <div className={styles.buttoncontainer}>
  
-             <button className={styles.custombutton}  onClick={()=>{ onSend('Can you take me to the privacy site','');handleButtonClick()}}>
-                  <span className={styles.line}><strong>Can you take me to </strong>  <br/> </span>
-                  <span className={styles.Subline}>the privacy site</span>
+             <button className={styles.custombutton}  onClick={()=>{ onSend('Show me where the finance privacy site is','');handleButtonClick()}}>
+                  <span className={styles.line}><strong>Show me where  </strong>  <br/> </span>
+                  <span className={styles.Subline}>the finance privacy site is</span>
              </button>
 
              <button className={styles.custombutton} onClick={()=>{onSend('How do I know when to start a privacy review ','');handleButtonClick()}}>
@@ -123,5 +126,6 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
      </Stack>
     );
 };
+
 
 
